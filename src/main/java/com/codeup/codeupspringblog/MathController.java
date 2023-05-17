@@ -12,4 +12,27 @@ public class MathController {
     public String add(@PathVariable int x, @PathVariable int y){
        return String.valueOf(x + y);
     }
+
+    @GetMapping("/subtract/{x}/from/{y}")
+    @ResponseBody
+    public String subtract(@PathVariable int x, @PathVariable int y){
+        return String.valueOf(y-x);
+    }
+
+    @GetMapping("/multiply/{x}/and/{y}")
+    @ResponseBody
+    public String multiply(@PathVariable int x, @PathVariable int y){
+        return String.valueOf(x * y);
+    }
+
+    @GetMapping("/divide/{x}/by/{y}")
+    @ResponseBody
+    public String divide(@PathVariable int x, @PathVariable int y){
+        return String.valueOf(x / y);
+    }
+
+
+
+
+
 }
