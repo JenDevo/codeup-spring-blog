@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="partials/header.html :: head('roll-dice')">
     <meta charset="UTF-8">
     <title>Roll-Dice</title>
 </head>
 <body>
-<h1>Roll-Dice Guessing Game</h1>
+<nav th:replace="partials/navbar.html :: navbar"></nav>
 
-<h3>Please click on your number below to see if it matches the dice roll: </h3>
+<h4>Please click on your number below to see if it matches the dice roll: </h4>
 
     <a th:href="@{/roll-dice/1}">1</a>
     <a th:href="@{/roll-dice/2}">2</a>
@@ -17,9 +17,10 @@
     <a th:href="@{/roll-dice/6}">6</a>
 
 
-<h2 th:text="${userGuess}"></h2>
-<h2 th:text="${roll}"></h2>
-<h2 th:text="${comparison}"></h2>
+<h5 th:text="${userGuess}"></h5>
+<h5 th:text="${roll}"></h5>
+<h5 th:text="${comparison}"></h5>
 
+<footer th:replace="partials/footer.html :: footer"></footer>
 </body>
 </html>
