@@ -5,6 +5,10 @@
 <body>
 <nav th:replace="partials/navbar.html :: navbar"></nav>
 
+<div>
+    <h3 th:text="${post.getTitle()}"></h3>
+    <h5 th:text="${post.getBody()}"></h5>
+</div>
 
 <footer th:replace="partials/footer.html :: footer"></footer>
 </body>
