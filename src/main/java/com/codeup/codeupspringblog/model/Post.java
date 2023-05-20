@@ -1,7 +1,7 @@
 package com.codeup.codeupspringblog.model;
 
 public class Post {
-    private long id;
+
     private String title;
     private String body;
 
@@ -15,15 +15,6 @@ public class Post {
     }
 
 //    GETTERS AND SETTERS
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;

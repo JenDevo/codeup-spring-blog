@@ -6,6 +6,11 @@
 
 <nav th:replace="partials/navbar.html :: navbar"></nav>
 
+        <div th:each="post : ${allPosts}" class="card w-25 p-3">
+            <h2 th:text="${post.title}" class="text-primary"></h2>
+            <p th:text="${post.body}" />
+        </div>
+
 <footer th:replace="partials/footer.html :: footer"></footer>
 </body>
 </html>
