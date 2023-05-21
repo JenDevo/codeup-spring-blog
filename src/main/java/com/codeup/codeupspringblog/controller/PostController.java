@@ -1,5 +1,6 @@
 package com.codeup.codeupspringblog.controller;
 
+import com.codeup.codeupspringblog.dao.PostRepository;
 import com.codeup.codeupspringblog.model.Post;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,11 +9,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @Controller
 public class PostController {
+
+
+//    (Line 19 & 21-23) Dependency Injection from Posts Interface
+    private final PostRepository adDao;
+
+    public PostController(PostRepository adDao) {
+        this.adDao = adDao;
+    }
 
     @GetMapping("/posts")
     public String indexPage(Model model){
@@ -40,10 +48,10 @@ public class PostController {
 
 
     @GetMapping("/posts/create")
-    @ResponseBody
     public String viewPostForm(){
-        return "Viewing the form to create a post";
+        return "posts/create";
     }
+
 
     @PostMapping("posts/create")
     @ResponseBody
