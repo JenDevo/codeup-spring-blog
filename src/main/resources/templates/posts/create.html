@@ -6,16 +6,16 @@
 <nav th:replace="partials/navbar.html :: navbar"></nav>
 
 <div class="container d-flex justify-content-center mt-3">
-    <form class="card w-50 p-3">
+    <form class="card w-50 p-3" method="post" th:action="@{/posts/create}">
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" placeholder="Title">
+            <input type="text" class="form-control" id="title" placeholder="Title" name="title">
         </div>
         <div class="form-group">
-            <label for="description">Description</label>
-            <textarea class="form-control" id="description" rows="3"></textarea>
+            <label for="body">Description</label>
+            <textarea class="form-control" id="body" rows="3" name="body"></textarea>
         </div>
-        <button type="submit">Create Post</button>
+        <button type="submit" class="btn btn-primary">Create Post</button>
     </form>
 </div>
 

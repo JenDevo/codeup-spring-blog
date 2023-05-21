@@ -4,29 +4,27 @@ import com.codeup.codeupspringblog.dao.PostRepository;
 import com.codeup.codeupspringblog.model.Post;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class PostController {
 
 
 //    (Line 19 & 21-23) Dependency Injection from Posts Interface
-    private final PostRepository adDao;
+    private final PostRepository postDao;
 
-    public PostController(PostRepository adDao) {
-        this.adDao = adDao;
+    public PostController(PostRepository postDao) {
+        this.postDao = postDao;
     }
 
     @GetMapping("/posts")
     public String indexPage(Model model){
 
 //        Created a new array list.
-        ArrayList<Post> allPosts = new ArrayList<>();
+        List<Post> allPosts = postDao.findAll();
 
 //        Two post objects are added to the array list called allPosts
         allPosts.add(new Post("This is a new post!!!", "I am saying lots of things relating to my post."));
@@ -41,7 +39,11 @@ public class PostController {
 
 
     @GetMapping("/posts/{id}")
-    public String individualPost(@PathVariable int id, Model model){
+    public String individualPost(@PathVariable Long id, Model model){
+        Post post = postDao.getReferenceById(id);
+
+
+        model.addAttribute("post", post);
         model.addAttribute("individualPost", new Post("I am the Title of this Post!", "I am the body of the post, I will be the description or whatever the creator wants to be here!"));
         return "posts/show";
     }
@@ -53,9 +55,11 @@ public class PostController {
     }
 
 
-    @PostMapping("posts/create")
-    @ResponseBody
-    public String createForm(){
-        return "New Post Created";
+    @PostMapping("/posts/create")
+    public String createForm(@RequestParam String title, @RequestParam String body){
+
+        Post post = new Post(title, body);
+        postDao.save(post);
+        return "redirect:/posts";
     }
 }
