@@ -1,22 +1,25 @@
 package com.codeup.codeupspringblog.controller;
 
 import com.codeup.codeupspringblog.dao.PostRepository;
+import com.codeup.codeupspringblog.dao.UserRepository;
 import com.codeup.codeupspringblog.model.Post;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class PostController {
 
+    //Inject UserRepository into PostController
+    private final UserRepository userDao;
 
 //    (Line 19 & 21-23) Dependency Injection from Posts Interface
     private final PostRepository postDao;
 
-    public PostController(PostRepository postDao) {
+    public PostController(UserRepository userDao, PostRepository postDao) {
+        this.userDao = userDao;
         this.postDao = postDao;
     }
 
@@ -40,11 +43,9 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String individualPost(@PathVariable Long id, Model model){
-        Post post = postDao.getReferenceById(id);
-
+        Post post = postDao.findPostById(id);
 
         model.addAttribute("post", post);
-        model.addAttribute("individualPost", new Post("I am the Title of this Post!", "I am the body of the post, I will be the description or whatever the creator wants to be here!"));
         return "posts/show";
     }
 

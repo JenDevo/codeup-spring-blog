@@ -18,7 +18,7 @@ public class Post {
 //    Many-To-One
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Post post;
+    private User user;
 
 //    CONSTRUCTOR
     public Post(){}

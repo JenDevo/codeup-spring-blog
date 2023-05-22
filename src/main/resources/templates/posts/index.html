@@ -8,8 +8,8 @@
 
 <div class="d-flex space-evenly">
     <div th:each="post : ${allPosts}" class="card w-25 p-3 m-3 ">
-        <a href="show.html"><h2 th:text="${post.getTitle() }" class="text-primary"></h2></a>
-        <p th:text="${post.getBody()}"/>
+        <a th:href="@{/posts/{id} (id = ${post.id})}"><h2 th:text="${post.title}" class="text-primary"></h2></a>
+        <p th:text="${post.body}"/>
     </div>
 </div>
 
