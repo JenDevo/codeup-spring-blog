@@ -9,12 +9,16 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, length = 100, name = "title")
+    @Column(nullable = false, length = 100)
     private String title;
 
-    @Column(nullable = false, name = "body")
+    @Column(nullable = false)
     private String body;
 
+//    Many-To-One
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Post post;
 
 //    CONSTRUCTOR
     public Post(){}
