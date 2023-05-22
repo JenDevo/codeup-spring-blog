@@ -12,11 +12,11 @@ import java.util.List;
 @Controller
 public class PostController {
 
-    //Inject UserRepository into PostController
-    private final UserRepository userDao;
-
 //    (Line 19 & 21-23) Dependency Injection from Posts Interface
     private final PostRepository postDao;
+
+    //Inject UserRepository into PostController
+    private final UserRepository userDao;
 
     public PostController(UserRepository userDao, PostRepository postDao) {
         this.userDao = userDao;
@@ -28,11 +28,6 @@ public class PostController {
 
 //        Created a new array list.
         List<Post> allPosts = postDao.findAll();
-
-//        Two post objects are added to the array list called allPosts
-        allPosts.add(new Post("This is a new post!!!", "I am saying lots of things relating to my post."));
-        allPosts.add(new Post("This is the second post", "Here is where I am saying a lot of important information regarding my post."));
-
         // Passing the arraylist to the view
         // (AKA ability to call > "th:each='post : ${allPosts}'"
         // in index.html);
@@ -61,6 +56,13 @@ public class PostController {
 
         Post post = new Post(title, body);
         postDao.save(post);
+        return "redirect:/posts";
+    }
+
+    @PostMapping("/posts/delete")
+    public String deletePost(@RequestParam Long id){
+        postDao.deleteById(id);
+
         return "redirect:/posts";
     }
 }
