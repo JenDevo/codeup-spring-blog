@@ -3,6 +3,7 @@ package com.codeup.codeupspringblog.controller;
 import com.codeup.codeupspringblog.dao.PostRepository;
 import com.codeup.codeupspringblog.dao.UserRepository;
 import com.codeup.codeupspringblog.model.Post;
+import com.codeup.codeupspringblog.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,23 +39,23 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String individualPost(@PathVariable Long id, Model model){
-        Post post = postDao.findPostById(id);
-
+        Post post = postDao.findById(id).get();
         model.addAttribute("post", post);
         return "posts/show";
     }
 
 
     @GetMapping("/posts/create")
-    public String viewPostForm(){
+    public String viewPostForm(Model model){
+        model.addAttribute("post", new Post());
         return "posts/create";
     }
 
 
     @PostMapping("/posts/create")
-    public String createForm(@RequestParam String title, @RequestParam String body){
-
-        Post post = new Post(title, body);
+    public String createForm(@ModelAttribute Post post){
+        User user = userDao.findById(2L).get();
+        post.setUser(user);
         postDao.save(post);
         return "redirect:/posts";
     }
