@@ -1,9 +1,10 @@
 package com.codeup.codeupspringblog.controller;
 
-import com.codeup.codeupspringblog.dao.PostRepository;
-import com.codeup.codeupspringblog.dao.UserRepository;
+import com.codeup.codeupspringblog.repositories.PostRepository;
+import com.codeup.codeupspringblog.repositories.UserRepository;
 import com.codeup.codeupspringblog.model.Post;
 import com.codeup.codeupspringblog.model.User;
+import com.codeup.codeupspringblog.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,15 +14,20 @@ import java.util.List;
 @Controller
 public class PostController {
 
-//    (Line 19 & 21-23) Dependency Injection from Posts Interface
+    //  (Line 19 & 21-23) Dependency Injection from Posts Interface
     private final PostRepository postDao;
 
-    //Inject UserRepository into PostController
+    //  Inject UserRepository into PostController
     private final UserRepository userDao;
 
-    public PostController(UserRepository userDao, PostRepository postDao) {
+    //  Dependency Injection - EmailService into Post Controller
+    private final EmailService emailService;
+
+
+    public PostController(UserRepository userDao, PostRepository postDao, EmailService emailService) {
         this.userDao = userDao;
         this.postDao = postDao;
+        this.emailService = emailService;
     }
 
     @GetMapping("/posts")
@@ -76,6 +82,15 @@ public class PostController {
     @PostMapping("/posts/delete")
     public String deletePost(@RequestParam Long id){
         postDao.deleteById(id);
+
+        return "redirect:/posts";
+    }
+
+    @GetMapping("/posts/email/{id}")
+    public String sendEmailAboutPost(@PathVariable Long id){
+        Post post = postDao.getReferenceById(id);
+
+        emailService.prepareAndSend(post, "Here's the information about the post you created", post.getTitle() + " : " + post.getBody() + "Posted by: " + post.getUser().getUsername());
 
         return "redirect:/posts";
     }
