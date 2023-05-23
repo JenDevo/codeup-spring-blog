@@ -7,10 +7,12 @@
 <nav th:replace="partials/navbar.html :: navbar"></nav>
 
 <div class="d-flex space-evenly">
-    <div th:each="post : ${allPosts}" class="card w-25 p-3 m-3 ">
-        <a th:href="@{/posts/{id} (id = ${post.id})}"><h2 th:text="${post.title}" class="text-primary"></h2></a>
-        <p th:text="${post.body}"/>
-        <a th:href="@{/posts/email/{id}(id=${post.getId()})}">Email About Post</a>
+    <div th:each="post : ${allPosts}" class="card w-25 p-3 m-3">
+        <a th:href="@{/posts/{id} (id = ${post.id})}" class="text-decoration-none"><h2 th:text="${post.title}"
+                                                                                       class="text-primary text-center"></h2>
+        </a>
+        <p th:text="${post.body}" class="m-auto"/>
+        <a th:href="@{/posts/email/{id}(id=${post.getId()})}" class="text-center mt-auto">Email About Post</a>
     </div>
 </div>
 

@@ -5,18 +5,20 @@
 <body>
 <nav th:replace="partials/navbar.html :: navbar"></nav>
 
-<div class="card w-25 p-3 d-flex align-items-center mt-5">
-    <div class="card-body text-center">
-    <h2 th:text="${post.title}" class="text-primary"></h2>
-    <h4 th:text="${post.body}"></h4>
-<!--        <h5 th:text="${post.user.email}"></h5>-->
+<div class="mt-5 text-center">
+    <div class="text-center">
+        <h2 th:text="${post.title}" class="text-primary"></h2>
+        <h4 th:text="${post.body}"></h4>
+        <!--        <h5 th:text="${post.user.email}"></h5>-->
 
-<!--        Functionality to delete Post -->
-        <form th:action="@{/posts/delete}" method="POST">
-            <input type="hidden" name="id" th:value="${post.id}">
-            <button type="submit" class="btn btn-danger">Delete Post</button>
-        </form>
-        <a th:href="@{/posts/{id}/edit (id=${post.id})}" class="btn btn-primary">Edit Post</a>
+        <!--        Functionality to delete Post -->
+        <div class="d-flex justify-content-center mt-4">
+            <form th:action="@{/posts/delete}" method="POST">
+                <input type="hidden" name="id" th:value="${post.id}">
+                <button type="submit" class="btn btn-danger me-3">Delete Post</button>
+            </form>
+            <a th:href="@{/posts/{id}/edit (id=${post.id})}" class="btn btn-primary">Edit Post</a>
+        </div>
     </div>
 </div>
 
