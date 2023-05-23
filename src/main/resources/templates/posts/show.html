@@ -16,6 +16,7 @@
             <input type="hidden" name="id" th:value="${post.id}">
             <button type="submit" class="btn btn-danger">Delete Post</button>
         </form>
+        <a th:href="@{/posts/{id}/edit (id=${post.id})}" class="btn btn-primary">Edit Post</a>
     </div>
 </div>
 
