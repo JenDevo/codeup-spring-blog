@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="partials/header.html :: head('Create a Post')">
 </head>
 <body>
@@ -7,17 +7,30 @@
 
 <div class="container d-flex justify-content-center mt-3">
     <form class="card w-50 p-3" method="post" th:action="@{/posts/create}" th:object="${post}">
+
         <input type="hidden" th:field="*{id}">
+
         <div class="form-group">
-            <label for="title">Title</label>
+            <label for="title"></label>
             <input type="text" class="form-control" th:field="*{title}" name="title" id="title">
         </div>
+
         <div class="form-group">
-            <label for="body">Description</label>
+            <label for="body"></label>
             <textarea class="form-control" id="body" rows="3" name="body" th:field="*{body}"></textarea>
         </div>
+
         <button type="submit" class="btn-primary">Create Post</button>
+
+        <div sec:authorize="isAuthenticated()">
+        This content is only shown to authenticated users.
+
+        User ID: <span th:text="${#authentication.principal.id}"/>
+        Username: <span th:text="${#authentication.principal.username}"/>
+        Email: <span th:text="${#authentication.principal.email}"/>
+    </div>
     </form>
+
 </div>
 
 <footer th:replace="partials/footer.html :: footer"></footer>
