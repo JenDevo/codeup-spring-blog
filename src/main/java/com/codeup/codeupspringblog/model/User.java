@@ -19,7 +19,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String password;
 
     //One-To-Many
@@ -41,6 +41,14 @@ public class User {
         this.email = email;
         this.password = password;
         this.posts = posts;
+    }
+
+//    Copy Constructor: for spring security
+    public User(User copy){
+        id = copy.id;
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
     }
 
     public long getId() {
