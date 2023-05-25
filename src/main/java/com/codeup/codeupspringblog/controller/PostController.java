@@ -6,6 +6,7 @@ import com.codeup.codeupspringblog.model.Post;
 import com.codeup.codeupspringblog.model.User;
 import com.codeup.codeupspringblog.services.EmailService;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -75,10 +76,17 @@ public class PostController {
         return "posts/edit";
     }
 
-    @PostMapping("posts/edit")
+    @PostMapping("/posts/{id}/edit")
+    public String editPostTest(@PathVariable Long id, Model model){
+        Post post = postDao.findById(id).get();
+        model.addAttribute("posts", post);
+        return "redirect:/posts";
+    }
+
+    @PostMapping("posts/{id}/edit")
     public String updateEdit(@ModelAttribute Post post) {
         postDao.save(post);
-        return "redirect:/posts";
+        return "redirect:/posts/{id}";
     }
 
     @PostMapping("/posts/delete")
