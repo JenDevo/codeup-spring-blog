@@ -76,13 +76,6 @@ public class PostController {
         return "posts/edit";
     }
 
-    @PostMapping("/posts/{id}/edit")
-    public String editPostTest(@PathVariable Long id, Model model){
-        Post post = postDao.findById(id).get();
-        model.addAttribute("posts", post);
-        return "redirect:/posts";
-    }
-
     @PostMapping("posts/{id}/edit")
     public String updateEdit(@ModelAttribute Post post) {
         postDao.save(post);
